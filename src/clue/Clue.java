@@ -17,8 +17,10 @@ public class Clue {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Controler control= new Controler();
-        control.init();
+       // Controler control= new Controler();
+        //control.init();
+        
+        
     }
 
     
