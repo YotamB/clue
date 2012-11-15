@@ -4,7 +4,9 @@
  */
 package clue.view;
 
-import clue.Model.RoomsStatus;
+import clue.model.RoomsStatus;
+
+
 
 /**
  *

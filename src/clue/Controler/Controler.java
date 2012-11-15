@@ -2,14 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package clue;
+package clue.controler;
 
-import clue.Model.CharactersCard;
-import clue.Model.WeaponsCard;
-import clue.controler.GameLogic;
-import clue.controler.logic.players.Computer;
-import clue.controler.logic.players.Human;
-import clue.controler.logic.players.Player;
+import clue.Utilitys;
+import clue.controler.players.Computer;
+import clue.controler.players.Human;
+import clue.controler.players.Player;
+import clue.model.CharactersCard;
+import clue.model.RoomCard;
+import clue.model.WeaponsCard;
 import clue.view.View;
 
 /**
@@ -72,6 +73,13 @@ public class Controler implements Utilitys{
         
         view.updatePownLocationOnBoard(playerNumber);
     }
+    
+    public boolean askUserIfWantToAccuse()
+    {
+        boolean toAccuse=_YES;
+//        toAccuse = view.askUserIfHeWantToAccuse(); //@TODO remove comment and implement!
+        return toAccuse;
+    }
     public CharactersCard logicIsAskingPlayerWhoToAccuse()
     {
         int userGuess=view.askPlayerWhoToAccuse();
@@ -84,5 +92,12 @@ public class Controler implements Utilitys{
         int userGuess = view.askWeaponToAccuse();
         WeaponsCard weaponGuess=new WeaponsCard(userGuess);
         return weaponGuess;
+    }
+    
+    public RoomCard logicIsAskingPlayerForRoomOfMerder()
+            {
+        int userGuess = view.askWeaponToAccuse();
+        RoomCard roomGuess=new RoomCard();
+        return roomGuess;
     }
 }

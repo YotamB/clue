@@ -4,14 +4,15 @@
  */
 package clue.controler;
 
-import clue.Controler;
-import clue.Model.CardDeck;
-import clue.Model.CharactersCard;
-import clue.Model.Envelope;
-import clue.Model.RoomCard;
-import clue.Model.WeaponsCard;
+
+
 import clue.Utilitys;
-import clue.controler.logic.players.Player;
+import clue.controler.players.Player;
+import clue.model.CardDeck;
+import clue.model.CharactersCard;
+import clue.model.Envelope;
+import clue.model.RoomCard;
+import clue.model.WeaponsCard;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -50,25 +51,32 @@ public class GameLogic implements Utilitys   { // @TESTING event
                 userGuessResult==_WRONGRESULT ;i++)
         {
             Player currentPlayer = currentTurn.next();
-            int diceResult= currentPlayer.RoolDice();
-            boolean diration =observer.logicPlayerNeedToMove(
-                    currentPlayer ,diceResult);
-            currentPlayer.updateUserLocation(diceResult, diration);
-            observer.updateViewOnPlayerMove(currentPlayer.getMyPlayerNumber());
-            if(currentPlayer.getUserLocation().getRoomNum()!=0)//Not Hallway
+            if (observer.askUserIfWantToAccuse()==_YES)
             {
-                String room=currentPlayer.getUserLocation().getName();
-                userGuessResult=makeAnAccusation(room);
-                if (userGuessResult==_RIGHTGUESS)//@TODO make it nicer with event to handel result!!
+                userGuessResult=makeAnAccusation();
+            }
+            else
+            {
+                int diceResult= currentPlayer.RoolDice();
+                boolean diration =observer.logicPlayerNeedToMove(
+                        currentPlayer ,diceResult);
+                currentPlayer.updateUserLocation(diceResult, diration);
+                observer.updateViewOnPlayerMove(currentPlayer.getMyPlayerNumber());
+                if(currentPlayer.getUserLocation().getRoomNum()!=0)//Not Hallway
                 {
-                    observer.gameWon(currentPlayer);
+                    String room=currentPlayer.getUserLocation().getName();
+                    userGuessResult=makeAGuess(room);
+    //                if (userGuessResult==_RIGHTGUESS)//@TODO make it nicer with event to handel result!!
+    //                {
+    //                    observer.gameWon(currentPlayer);
+    //                }
                 }
             }
         }
         return turnResult;
     }
     
-    private boolean makeAnAccusation(String location)
+    private boolean makeAGuess(String location)
     {
         boolean result;
          RoomCard roomGuess = new RoomCard(
@@ -78,7 +86,16 @@ public class GameLogic implements Utilitys   { // @TESTING event
         Envelope guess = new Envelope(weaponGuess, characterGuess, roomGuess);
         result = envelope.equals(guess);
         return result;
-        
+    }
+    private boolean makeAnAccusation()
+    {
+        boolean result;
+        RoomCard roomGuess = observer.logicIsAskingPlayerForRoomOfMerder();
+        CharactersCard characterGuess= observer.logicIsAskingPlayerWhoToAccuse();
+        WeaponsCard weaponGuess = observer.logicIsAskingWeaponToAccuse();
+        Envelope guess = new Envelope(weaponGuess, characterGuess, roomGuess);
+        result = envelope.equals(guess);
+        return result;
     }
     
     private void initPlayers()

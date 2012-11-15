@@ -4,6 +4,8 @@
  */
 package clue;
 
+import clue.controler.Controler;
+
 /**
  *
  * @author Yotam

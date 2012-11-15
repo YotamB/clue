@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package clue.Model;
+package clue.model;
 
 import java.util.Random;
 
@@ -31,7 +31,17 @@ public class RoomCard {
         this.room=inputRoom;
     } 
  
- public boolean equals(Object obj) {
+ public RoomCard()
+ {
+     selectRandomRoom();
+ }
+ 
+ public RoomCard(int room)
+ {
+     roomFromInt(room);
+ }
+ 
+  public boolean equals(Object obj) {
         boolean equals=true;
         if (obj==null)
         {
@@ -53,16 +63,9 @@ public class RoomCard {
         }
         return equals;
     }
- 
- public RoomCard()
+ private void roomFromInt(int room)
  {
-     selectRandomRoom();
- }
-    public void selectRandomRoom()
-    {
-        Random random = new Random();
-        int resultOfRandom=resultOfRandom= (random.nextInt(9)+1);
-        switch (resultOfRandom) 
+     switch (room) 
         {
             case 1: this.room =(RoomCard.Rooms.Ballroom);
                     RoomCard.Rooms.Ballroom.setActive();
@@ -93,6 +96,12 @@ public class RoomCard {
                 break;
                 default:this.room=null;
         }
+ }
+    public void selectRandomRoom()
+    {
+        Random random = new Random();
+        int resultOfRandom=resultOfRandom= (random.nextInt(9)+1);
+        roomFromInt(resultOfRandom);
     }
     
 }

@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package clue.Model;
+package clue.model;
 
-import clue.Model.WeaponsCard.Weapons;
+import clue.model.WeaponsCard.Weapons;
 import clue.view.Pawn;
 import java.util.List;
 
