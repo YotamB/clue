@@ -36,25 +36,56 @@ public class Board {
     }
     public void printBoard()
     {
-    String rowOfDash=new String();
-    for (int i=0 ; i<79 ; i++)
-    {
-        rowOfDash=rowOfDash+"-";
+        int screenWidth = 106;
+      int roomWidth = 20;
+      int roomHeight = 5;       
+      
+      //print top frame line
+      for (int topFrameInd=0; topFrameInd<screenWidth; topFrameInd++)
+      {
+          System.out.print("-");
+      }
+      System.out.print("\n");
+      
+      for (int numOfVerticalRooms=0; numOfVerticalRooms < 5; numOfVerticalRooms++)
+      {
+          for (int RoomWallsDashes=0; RoomWallsDashes < roomHeight; RoomWallsDashes++)
+          {
+              System.out.print("|");
+              
+              for (int numOfHorizontalRooms=0; numOfHorizontalRooms < 5; numOfHorizontalRooms++)
+              {
+                for (int roomEmptySpaceInd=0; roomEmptySpaceInd < roomWidth; roomEmptySpaceInd++)
+                {
+                    System.out.print(" ");
+                }
+
+                if ((numOfVerticalRooms>0 && numOfVerticalRooms<4) && (numOfHorizontalRooms>0 && numOfHorizontalRooms<3 ))
+                {   
+                    System.out.print(" ");
+                } else {
+                    System.out.print("|");
+                } 
+              }
+              System.out.print("\n");
+          }
+        for (int floorsInd=0; floorsInd<screenWidth; floorsInd++)
+        {
+            if (numOfVerticalRooms>0 && numOfVerticalRooms<3)  
+            {
+                if (floorsInd > roomWidth && floorsInd <roomWidth*4+4)
+                {
+                    System.out.print(" ");
+                } else {
+                   System.out.print("-");
+                  } 
+            } else {
+                System.out.print("-");
+            }
+         }
+        System.out.print("\n");
+      }
+      System.out.print("\n");       
     }
-    System.out.println(rowOfDash);
-    printFirstLine();
-       
-//    System.out.println(rowOfDash);
-    }
-    void printFirstLine()
-    {
-        System.out.print("|  ");
-        System.out.print( rooms.BALLROOM+ "  |");
-//        for(RoomsStatus rooms : RoomsStatus.values())
-//       {
-//           System.out.print(rooms.getRoomName());
-//       }
-    }
-    
-    
+  
 }
