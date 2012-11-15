@@ -32,7 +32,11 @@ public class Controler implements Utilitys{
         }
 //        view.printBoard();
     }
-    
+
+    public void gameWon(Player currentPlayer)
+    {
+        
+    }
     public Player logicCreatePlayerReqest()
     {
         Player newPlayer;

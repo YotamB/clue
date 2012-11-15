@@ -59,8 +59,10 @@ public class GameLogic implements Utilitys   { // @TESTING event
             {
                 String room=currentPlayer.getUserLocation().getName();
                 userGuessResult=makeAnAccusation(room);
-                //@TODO need to create event to handel result!!
-                
+                if (userGuessResult==_RIGHTGUESS)//@TODO make it nicer with event to handel result!!
+                {
+                    observer.gameWon(currentPlayer);
+                }
             }
         }
         return turnResult;
