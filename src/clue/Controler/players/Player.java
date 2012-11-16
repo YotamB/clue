@@ -11,6 +11,7 @@ import clue.model.RoomsStatus;
 import clue.model.WeaponsCard;
 import java.util.ArrayList;
 import java.util.List;
+import clue.model.RoomCard;
 
 
 /**
@@ -34,6 +35,8 @@ public abstract class Player {
             new ArrayList<CharactersCard>();
     private List<WeaponsCard> playerWeaponsCards= 
             new ArrayList<WeaponsCard>();
+    private List<RoomCard> playerRoomCards= 
+            new ArrayList<RoomCard>();
     
     public void getNewWeaponeCard(WeaponsCard newWeaponsCard)
     {
@@ -43,6 +46,11 @@ public abstract class Player {
     public void getNewCharacterCard(CharactersCard newCharacter)
     {
         playerCharacterCards.add(newCharacter);
+    }
+    
+    public void getNewRoomCard(RoomCard newRoom)
+    {
+        playerRoomCards.add(newRoom);
     }
     
     public int RoolDice()

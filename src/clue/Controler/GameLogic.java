@@ -54,6 +54,14 @@ public class GameLogic implements Utilitys   { // @TESTING event
             if (observer.askUserIfWantToAccuse()==_YES)
             {
                 userGuessResult=makeAnAccusation();
+                if(userGuessResult=_WRONGGUESS)
+                {
+                    //@TODO need to be removed from game.
+                }
+                else
+                {
+                    observer.gameWon(currentPlayer);
+                }
             }
             else
             {
@@ -65,28 +73,39 @@ public class GameLogic implements Utilitys   { // @TESTING event
                 if(currentPlayer.getUserLocation().getRoomNum()!=0)//Not Hallway
                 {
                     String room=currentPlayer.getUserLocation().getName();
-                    userGuessResult=makeAGuess(room);
-    //                if (userGuessResult==_RIGHTGUESS)//@TODO make it nicer with event to handel result!!
-    //                {
-    //                    observer.gameWon(currentPlayer);
-    //                }
+                    makeAGuess(room);
                 }
             }
         }
         return turnResult;
     }
     
-    private boolean makeAGuess(String location)
+    private void makeAGuess(String location)
     {
-        boolean result;
-         RoomCard roomGuess = new RoomCard(
-                RoomCard.Rooms.valueOf(location));
+//      boolean result;
+//      RoomCard roomGuess = new RoomCard(
+//                RoomCard.Rooms.valueOf(location));
         CharactersCard characterGuess= observer.logicIsAskingPlayerWhoToAccuse();
         WeaponsCard weaponGuess = observer.logicIsAskingWeaponToAccuse();
-        Envelope guess = new Envelope(weaponGuess, characterGuess, roomGuess);
-        result = envelope.equals(guess);
-        return result;
+//      Envelope guess = new Envelope(weaponGuess, characterGuess, roomGuess);
+        runGuessTest(characterGuess, weaponGuess);
+        
     }
+    
+    private void runGuessTest(CharactersCard characterGuess,WeaponsCard weaponGuess )
+    {
+        for (int i = 0 ; i< listOfPlayers.size() ;i++)
+        {
+            Player currentPlayer = currentTurn.next();
+            if(currentTurn!=currentPlayer)
+            {
+                observer.askIfHeHaveThisCards(characterGuess, weaponGuess);
+            }
+            //@TODO think how to tell the deffrance weapone and charecter card
+        }
+    }
+            
+    
     private boolean makeAnAccusation()
     {
         boolean result;
@@ -119,6 +138,8 @@ public class GameLogic implements Utilitys   { // @TESTING event
                     CardDeck.getWeaponCard());
                 listOfPlayers.get(j).getNewCharacterCard(
                     CardDeck.getCharecterCard());
+                listOfPlayers.get(j).getNewRoomCard(
+                    CardDeck.getRoomCard());
             }
         }   
     }

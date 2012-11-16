@@ -34,6 +34,10 @@ public class Controler implements Utilitys{
 //        view.printBoard();
     }
 
+    void askIfHeHaveThisCards(CharactersCard characterGuess,WeaponsCard weaponGuess)
+    {
+        
+    }
     public void gameWon(Player currentPlayer)
     {
         

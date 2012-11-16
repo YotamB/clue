@@ -61,4 +61,16 @@ public class CardDeck {
         newCard.setActiv();
         return newCard;
     }
+        public static RoomCard getRoomCard()
+    {
+        RoomCard newCard = new RoomCard();
+        boolean wasCharecterNonActiv=true;
+        while (wasCharecterNonActiv==true)
+        {
+            newCard.selectRandomRoom();
+            wasCharecterNonActiv=newCard.getActiv();
+        }
+        newCard.setActiv();
+        return newCard;
+    }
 }

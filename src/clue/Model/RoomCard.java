@@ -103,5 +103,13 @@ public class RoomCard {
         int resultOfRandom=resultOfRandom= (random.nextInt(9)+1);
         roomFromInt(resultOfRandom);
     }
-    
+    public void setActiv()
+    {
+        this.room.active=true;
+    }
+        
+    public boolean getActiv()
+    {
+      return this.room.active;
+    }
 }
