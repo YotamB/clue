@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package clue.model;
+package clue.Model;
 
 import java.util.Random;
 
@@ -26,7 +26,7 @@ public class CharactersCard {
              active=true;
         }
     }
-    
+        
     public boolean equals(Object obj) {
         boolean equals=true;
         if (obj==null)
@@ -101,5 +101,9 @@ public class CharactersCard {
         charactersCardFromInt(resultOfRandom);
     }
     
+   public String getCharecterName()
+ {
+     return this.character.toString();
+ }
   
 }

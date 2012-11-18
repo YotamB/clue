@@ -4,7 +4,7 @@
  */
 package clue;
 
-import clue.controler.Controler;
+import clue.Controler.Controler;
 
 /**
  *

@@ -2,16 +2,16 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package clue.controler.players;
+package clue.Controler.players;
 
 
-import clue.controler.Dice;
-import clue.model.CharactersCard;
-import clue.model.RoomsStatus;
-import clue.model.WeaponsCard;
+import clue.Controler.Dice;
+import clue.Model.CharactersCard;
+import clue.Model.RoomsStatus;
+import clue.Model.WeaponsCard;
 import java.util.ArrayList;
 import java.util.List;
-import clue.model.RoomCard;
+import clue.Model.RoomCard;
 
 
 /**
@@ -43,14 +43,14 @@ public abstract class Player {
         playerWeaponsCards.add(newWeaponsCard);
     }
     
-    public void getNewCharacterCard(CharactersCard newCharacter)
+    public void getNewCharacterCard(CharactersCard newCharacterCard)
     {
-        playerCharacterCards.add(newCharacter);
+        playerCharacterCards.add(newCharacterCard);
     }
     
-    public void getNewRoomCard(RoomCard newRoom)
+    public void getNewRoomCard(RoomCard newRoomCard)
     {
-        playerRoomCards.add(newRoom);
+        playerRoomCards.add(newRoomCard);
     }
     
     public int RoolDice()

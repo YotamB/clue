@@ -15,7 +15,7 @@ public class View {
         Board board=new Board();
         public int askUserForNumberOfPlayers()
         {
-            System.out.println("Please Enter number 3-6 of users");
+            System.out.println("Please Enter number 3-6 of users ");
             Scanner scanner = new Scanner(System.in);
             int userString = scanner.nextInt();
             return userString;
@@ -66,5 +66,11 @@ public class View {
             Scanner scanner = new Scanner(System.in);
             int userInput = scanner.nextInt();
             return userInput;
+        }
+        public boolean askUserIfHaveThisCards(String roomGuess ,
+                    String characterGuess,String weaponGuess)
+        {
+            System.out.println(roomGuess+","+characterGuess+","+weaponGuess);
+            return true;
         }
 }

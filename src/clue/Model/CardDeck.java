@@ -2,11 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package clue.model;
+package clue.Model;
 
-import clue.model.CharactersCard.Characters;
-import clue.model.RoomCard.Rooms;
-import clue.model.WeaponsCard.Weapons;
+import clue.Model.CharactersCard.Characters;
+import clue.Model.RoomCard.Rooms;
+import clue.Model.WeaponsCard.Weapons;
 import java.util.ArrayList;
 import java.util.List;
 

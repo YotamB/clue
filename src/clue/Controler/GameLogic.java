@@ -2,17 +2,17 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package clue.controler;
+package clue.Controler;
 
 
 
+import clue.Model.CardDeck;
+import clue.Model.CharactersCard;
+import clue.Model.Envelope;
+import clue.Model.RoomCard;
+import clue.Model.WeaponsCard;
 import clue.Utilitys;
-import clue.controler.players.Player;
-import clue.model.CardDeck;
-import clue.model.CharactersCard;
-import clue.model.Envelope;
-import clue.model.RoomCard;
-import clue.model.WeaponsCard;
+import clue.Controler.players.Player;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class GameLogic implements Utilitys   { // @TESTING event
    CardDeck deck; 
-   Envelope envelope;
+   Envelope theTruth;
    private List<Player> listOfPlayers= 
             new ArrayList<Player>();
    Iterator<Player> currentTurn;
@@ -35,16 +35,21 @@ public class GameLogic implements Utilitys   { // @TESTING event
         deck = new CardDeck();
         WeaponsCard weapone=new WeaponsCard();
         weapone.selectRandomWeapon();
+        weapone.setActiv();
         CharactersCard character = new CharactersCard();
         character.selectRandomCharacter();
+        character.setActiv();
         RoomCard room = new RoomCard();
-        envelope = new Envelope(weapone, character , room);
+        
+        room.getActiv();
+        theTruth = new Envelope(weapone, character , room);
         initPlayers();
         currentTurn= listOfPlayers.iterator();
     }
   
     public int playRound()
     {
+        currentTurn= listOfPlayers.iterator();
         int turnResult=_RUNNING;
         boolean userGuessResult=_WRONGRESULT;
         for (int i = 0 ; i< listOfPlayers.size() &&
@@ -54,9 +59,10 @@ public class GameLogic implements Utilitys   { // @TESTING event
             if (observer.askUserIfWantToAccuse()==_YES)
             {
                 userGuessResult=makeAnAccusation();
-                if(userGuessResult=_WRONGGUESS)
+                if(userGuessResult==_WRONGGUESS)
                 {
-                    //@TODO need to be removed from game.
+                    //@TODO need to get massage that was removed from game.
+                    listOfPlayers.remove(currentPlayer);
                 }
                 else
                 {
@@ -70,38 +76,40 @@ public class GameLogic implements Utilitys   { // @TESTING event
                         currentPlayer ,diceResult);
                 currentPlayer.updateUserLocation(diceResult, diration);
                 observer.updateViewOnPlayerMove(currentPlayer.getMyPlayerNumber());
-                if(currentPlayer.getUserLocation().getRoomNum()!=0)//Not Hallway
+                int currentRoomNum =currentPlayer.getUserLocation().getRoomNum();
+                if(currentRoomNum%2 == 1 )//Not Hallway
                 {
-                    String room=currentPlayer.getUserLocation().getName();
-                    makeAGuess(room);
+                    makeAGuess(currentRoomNum);
                 }
             }
         }
         return turnResult;
     }
     
-    private void makeAGuess(String location)
+    private void makeAGuess(int location)
     {
 //      boolean result;
-//      RoomCard roomGuess = new RoomCard(
-//                RoomCard.Rooms.valueOf(location));
+        RoomCard roomGuess = new RoomCard(location);
         CharactersCard characterGuess= observer.logicIsAskingPlayerWhoToAccuse();
         WeaponsCard weaponGuess = observer.logicIsAskingWeaponToAccuse();
 //      Envelope guess = new Envelope(weaponGuess, characterGuess, roomGuess);
-        runGuessTest(characterGuess, weaponGuess);
+        runGuessTest( roomGuess ,characterGuess, weaponGuess);
         
     }
     
-    private void runGuessTest(CharactersCard characterGuess,WeaponsCard weaponGuess )
+    private void runGuessTest(RoomCard roomGuess , CharactersCard characterGuess,WeaponsCard weaponGuess )
     {
-        for (int i = 0 ; i< listOfPlayers.size() ;i++)
+        //@TODO make the loop better order of players.
+        Iterator<Player> showCards;
+        showCards= listOfPlayers.iterator(); 
+        for (int i =0 ; i < listOfPlayers.size() ; i++)
         {
-            Player currentPlayer = currentTurn.next();
-            if(currentTurn!=currentPlayer)
+            if(showCards != currentTurn)
             {
-                observer.askIfHeHaveThisCards(characterGuess, weaponGuess);
+                observer.askIfHeHaveThisCards(roomGuess, characterGuess, weaponGuess);
             }
             //@TODO think how to tell the deffrance weapone and charecter card
+        showCards.next();
         }
     }
             
@@ -113,7 +121,7 @@ public class GameLogic implements Utilitys   { // @TESTING event
         CharactersCard characterGuess= observer.logicIsAskingPlayerWhoToAccuse();
         WeaponsCard weaponGuess = observer.logicIsAskingWeaponToAccuse();
         Envelope guess = new Envelope(weaponGuess, characterGuess, roomGuess);
-        result = envelope.equals(guess);
+        result = theTruth.equals(guess);
         return result;
     }
     
@@ -129,29 +137,27 @@ public class GameLogic implements Utilitys   { // @TESTING event
     
     private void dealCards(int numberOfPlayers)
     {
-        
-        for(int i = 6 ; i > 0 ;)
+        //One less card for Envelope
+        for(int i = 5 ; i > 0 ;)
         {
-            for (int j=0 ; j<numberOfPlayers; j++, i--)
+            for (int j=0 ; j<numberOfPlayers && i != 0; j++, i--)
             {
                 listOfPlayers.get(j).getNewWeaponeCard(
                     CardDeck.getWeaponCard());
                 listOfPlayers.get(j).getNewCharacterCard(
                     CardDeck.getCharecterCard());
+            }
+        }           
+        for(int i = 8 ; i > 0 ;)
+        {
+            for (int j=0 ; j<numberOfPlayers && i != 0; j++, i--)
+            {
                 listOfPlayers.get(j).getNewRoomCard(
                     CardDeck.getRoomCard());
             }
         }   
     }
-        
-//    private void printPlayers() //For @DEBUG only
-//    {
-//        for (int i=0 ; i< listOfPlayers.size() ; i++)
-//        {
-//            System.out.println(listOfPlayers.get(i).getName());
-//        }
-//    }
-
+ 
     
     
 }

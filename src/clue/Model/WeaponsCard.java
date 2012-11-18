@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package clue.model;
+package clue.Model;
 
 import java.util.Random;
 
@@ -100,5 +100,10 @@ public class WeaponsCard {
         Random random = new Random();
         int resultOfRandom=resultOfRandom= (random.nextInt(6)+1);
         weaponCardFromInt(resultOfRandom);
+    }
+    
+    public String getWaeponName()
+    {
+        return this.weapon.toString();
     }
 }

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package clue.model;
+package clue.Model;
 
 import java.util.Random;
 
@@ -30,7 +30,10 @@ public class RoomCard {
     {
         this.room=inputRoom;
     } 
- 
+ public String getRoomName()
+ {
+     return this.room.toString();
+ }
  public RoomCard()
  {
      selectRandomRoom();
@@ -41,6 +44,7 @@ public class RoomCard {
      roomFromInt(room);
  }
  
+    @Override
   public boolean equals(Object obj) {
         boolean equals=true;
         if (obj==null)
@@ -55,7 +59,7 @@ public class RoomCard {
         else
         {
             final RoomCard compare = (RoomCard) obj;
-            if(this.room.name()!=compare.room.name())
+            if(this.room.name() == null ? compare.room.name() != null : !this.room.name().equals(compare.room.name()))
             {
                 equals=false;
             }
@@ -63,36 +67,34 @@ public class RoomCard {
         }
         return equals;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + (this.room != null ? this.room.hashCode() : 0);
+        return hash;
+    }
  private void roomFromInt(int room)
  {
      switch (room) 
         {
             case 1: this.room =(RoomCard.Rooms.Ballroom);
-                    RoomCard.Rooms.Ballroom.setActive();
                 break;
             case 2: this.room =(RoomCard.Rooms.BilliardRoom);
-                    RoomCard.Rooms.BilliardRoom.setActive();
                 break;
             case 3: this.room =(RoomCard.Rooms.Conservatory);
-                    RoomCard.Rooms.Conservatory.setActive();
                 break;
             case 4: this.room =(RoomCard.Rooms.DiningRoom);
-                    RoomCard.Rooms.DiningRoom.setActive();
                 break;
             case 5: this.room =(RoomCard.Rooms.Hall);
-                    RoomCard.Rooms.Hall.setActive();
                 break;
             case 6:this.room =(RoomCard.Rooms.Kitchen);
-                    RoomCard.Rooms.Kitchen.setActive();
                 break;
             case 7: this.room =(RoomCard.Rooms.Library);
-                    RoomCard.Rooms.Library.setActive();
                 break;
             case 8: this.room =(RoomCard.Rooms.Lounge);
-                    RoomCard.Rooms.Lounge.setActive();
                 break;
             case 9:this.room =(RoomCard.Rooms.Study);
-                    RoomCard.Rooms.Study.setActive();  
                 break;
                 default:this.room=null;
         }

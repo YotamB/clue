@@ -2,15 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package clue.controler;
+package clue.Controler;
 
+import clue.Model.CharactersCard;
+import clue.Model.RoomCard;
+import clue.Model.WeaponsCard;
 import clue.Utilitys;
-import clue.controler.players.Computer;
-import clue.controler.players.Human;
-import clue.controler.players.Player;
-import clue.model.CharactersCard;
-import clue.model.RoomCard;
-import clue.model.WeaponsCard;
+import clue.Controler.players.Computer;
+import clue.Controler.players.Human;
+import clue.Controler.players.Player;
 import clue.view.View;
 
 /**
@@ -34,10 +34,12 @@ public class Controler implements Utilitys{
 //        view.printBoard();
     }
 
-    void askIfHeHaveThisCards(CharactersCard characterGuess,WeaponsCard weaponGuess)
+    void askIfHeHaveThisCards(RoomCard roomGuess ,CharactersCard characterGuess,WeaponsCard weaponGuess)
     {
-        
+        view.askUserIfHaveThisCards(roomGuess.getRoomName() ,
+                characterGuess.getCharecterName(), weaponGuess.getWaeponName());
     }
+    
     public void gameWon(Player currentPlayer)
     {
         
@@ -80,7 +82,7 @@ public class Controler implements Utilitys{
     
     public boolean askUserIfWantToAccuse()
     {
-        boolean toAccuse=_YES;
+        boolean toAccuse=_NO;
 //        toAccuse = view.askUserIfHeWantToAccuse(); //@TODO remove comment and implement!
         return toAccuse;
     }
